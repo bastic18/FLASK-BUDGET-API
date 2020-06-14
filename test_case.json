@@ -1,0 +1,1273 @@
+{
+	"info": {
+		"_postman_id": "93b02225-bb8c-4597-9b42-1a6ee681465f",
+		"name": "test cases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "534d8a50-2b95-41b4-879e-b33a11613411",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"JWT\", jsonData.jwt);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "de3442c9-5345-4e2c-bedd-261aa3d43177",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmRhbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6InNoYTI1NiRWWHBuaFM3NyQ2NjYwZTg3MTgxZmZhYmQzNTgyMzQ4ODgzMjhjZDJmMTM0M2QzNzA1MzFhOWY1ZDRlYjZlMTg3NTFkN2VmNWM1IiwiYWRtaW4iOjAsImV4cCI6MTU5MTU1NTEwOX0.zSiAz1rqnwCwz7U7ngjr4zaK1YrMIo4qCqSKFSC_eA8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"admin@speurgroup.com\", \"password\":\"admin\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2938b5f9-10d4-4bf6-921c-e79ed1376554",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0385a3ef-7a61-40a7-b611-f63601a21ec3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abf92b3c-45bf-4a41-8cb1-70ab2f887685",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c5618e12-495a-484f-b7ee-5513af9726af",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3"
+					]
+				},
+				"description": "retrieve unique user 3 details from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "get user 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b701cf5e-818c-4d37-b0cc-b751f02b9857",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "29d07500-368c-4f87-9efc-284c8f5a6483",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4"
+					]
+				},
+				"description": "retrieve unique user 4 details from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "update user 3 details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73a0d2a7-9d93-4c9f-99af-3f7139d6856a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "23badeb4-6708-4e94-b7ce-9ff61ddcf569",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Garfield alex Grant\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3"
+					]
+				},
+				"description": "update unique user 3 details."
+			},
+			"response": []
+		},
+		{
+			"name": "delete user 6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0eb95970-7a03-46dc-80b9-9a0bd652a7d0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "00b953ff-054d-4cc2-80cb-ed22802a398a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6"
+					]
+				},
+				"description": "delete a user from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "login as a regular user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b497701-b38f-4699-80c8-40884f337708",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"JWT\", jsonData.jwt);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmRhbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6InNoYTI1NiRWWHBuaFM3NyQ2NjYwZTg3MTgxZmZhYmQzNTgyMzQ4ODgzMjhjZDJmMTM0M2QzNzA1MzFhOWY1ZDRlYjZlMTg3NTFkN2VmNWM1IiwiYWRtaW4iOjAsImV4cCI6MTU5MTU1NTEwOX0.zSiAz1rqnwCwz7U7ngjr4zaK1YrMIo4qCqSKFSC_eA8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"alexgrant@gmail.com\", \"password\":\"1234\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users/4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09c12b94-cf72-4148-bf4a-a10927e90158",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4"
+					]
+				},
+				"description": "getting regular users details but not authorized."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users/3",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3"
+					]
+				},
+				"description": "getting regular users details"
+			},
+			"response": []
+		},
+		{
+			"name": "get budget",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c721904f-e282-4bfc-8d11-d8b6e2926719",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    budget1=jsonData.budgets[0].id;\r",
+							"    budget2=jsonData.budgets[1].id;\r",
+							"    pm.collectionVariables.set(\"budget1\", budget1);\r",
+							"    pm.collectionVariables.set(\"budget2\", budget2);\r",
+							"\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/budgets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"budgets"
+					]
+				},
+				"description": "Get a regular user budget"
+			},
+			"response": []
+		},
+		{
+			"name": "get budget 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2eb1f2e3-3a33-4b1e-a5d2-8e298f2cce31",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    budget1=jsonData.budgets[0];\r",
+							"    budget2=jsonData.budgets[1]\r",
+							"    pm.collectionVariables.set(\"budget1\", jsonData.budgets[1]);\r",
+							"    pm.collectionVariables.set(\"budget2\", jsonData.budgets[1]);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/budgets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"budgets"
+					]
+				},
+				"description": "Get a regular user budget"
+			},
+			"response": []
+		},
+		{
+			"name": "get budget 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8970d12-92be-43c0-8cc5-c35aa237f1ea",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/budgets/{{budget2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"budgets",
+						"{{budget2}}"
+					]
+				},
+				"description": "Get a regular user budget"
+			},
+			"response": []
+		},
+		{
+			"name": "update budget 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f04697f-0df7-4521-a4a5-7fe3fc5e1b5d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"House budget update\",\r\n  \"income\": 450000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/budgets/{{budget2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"budgets",
+						"{{budget2}}"
+					]
+				},
+				"description": "update a budget"
+			},
+			"response": []
+		},
+		{
+			"name": "update anauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d587f4f4-7bdc-4153-ad27-e0a23589963e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"House budget update\",\r\n  \"income\": 450000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/budgets/{{budget2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"budgets",
+						"{{budget2}}"
+					]
+				},
+				"description": "update a budget"
+			},
+			"response": []
+		},
+		{
+			"name": "create a budget",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93e1e97d-8f86-48fa-aae9-e5eefa50d90a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Budget\",\r\n  \"income\": 250000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/3/budgets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"budgets"
+					]
+				},
+				"description": "Create a regular user budget"
+			},
+			"response": []
+		},
+		{
+			"name": "get budget 2 expenses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f33bc9b6-6ec1-4af7-925a-4f2d2be5099e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/budgets/{{budget2}}/expenses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"budgets",
+						"{{budget2}}",
+						"expenses"
+					]
+				},
+				"description": "Get a regular user budget expenses"
+			},
+			"response": []
+		},
+		{
+			"name": "create budget 2 expenses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2fd18c0-1381-406e-ba38-d9ebd9b92c99",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New expense\",\r\n  \"allocation\": 15000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/budgets/{{budget2}}/expenses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"budgets",
+						"{{budget2}}",
+						"expenses"
+					]
+				},
+				"description": "Get a regular user budget expenses"
+			},
+			"response": []
+		},
+		{
+			"name": "logout as a regular user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "428cd6ac-71a3-442a-89f2-ca8f6b48960f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"logout"
+					]
+				},
+				"description": "logout, invalidate a jwt token "
+			},
+			"response": []
+		},
+		{
+			"name": "get budget for logout user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c4f0ad6-f8aa-4af0-ab86-d9f22f0ba52a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/budgets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"budgets"
+					]
+				},
+				"description": "Get a regular user budget"
+			},
+			"response": []
+		},
+		{
+			"name": "login as another admin user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "26d0ba82-9ede-4eec-9cc2-a8b1c8b9aabf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"JWT\", jsonData.jwt);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"alex@gmail.com\", \"password\":\"admin\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update expense 3 (Admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02b8a89d-4b6f-4058-91f6-6ddd2277c5c0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Expense 3 Update\",\r\n  \"allocation\": 25000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/expenses/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"expenses",
+						"3"
+					]
+				},
+				"description": "update expense as a admin"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete expense 4 (Admin) ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dae9fb3-bca5-4a9b-aea5-ce0bd90e6efa",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/expenses/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"expenses",
+						"4"
+					]
+				},
+				"description": "delete expense as a admin"
+			},
+			"response": []
+		},
+		{
+			"name": "get expense 3 purchases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8b3a8fe-373e-4e95-9d29-949821053a52",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Expense 3 Update\",\r\n  \"allocation\": 25000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/expenses/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"expenses",
+						"3"
+					]
+				},
+				"description": "As a admin get expense 3 admin"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "d93ac03d-fd58-45b5-b38c-7e3f29f4f90f",
+			"key": "JWT",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1bc4b3cf-b805-4820-910f-bbec5015913b",
+			"key": "budget1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9bc83d6c-eb04-4552-8b87-bcce48f6ff7e",
+			"key": "budget2",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

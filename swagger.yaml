@@ -1,0 +1,770 @@
+openapi: 3.0.0
+info:
+  title: Budget API
+  description: |
+    [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+    This API describes crud operations on a budget management system
+
+  version: 1.0.0
+security:
+  - bearerAuth: []
+paths:
+  /login:
+    post:
+      tags:
+        - authentication
+      summary: Authenticate a user
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: someone@example.com
+                password:
+                  type: string
+                  format: password
+                  example: 3M7jLpvv
+      responses:
+        '200':
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully logged in
+                  code:
+                    type: integer
+                    example: 0
+                  user:
+                    $ref: '#/components/schemas/user'
+                  jwt:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+  /logout:
+    get:
+      tags:
+        - authentication
+      summary: End a user session
+      operationId: logout
+      responses:
+        '200':
+          description: Successfully logged out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully logged out
+                  code:
+                    type: integer
+                    example: 0
+  /users:
+    get:
+      tags:
+        - user
+      summary: Returns a list of users.
+      operationId: getUsers
+      responses:
+        '200':
+          description: A JSON array of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned users
+                  code:
+                    type: integer
+                    example: 0
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/user'
+    post:
+      tags:
+        - user
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: false
+                  example: John Doe
+                email:
+                  type: string
+                  required: false
+                  format: email
+                  example: someone@example.com
+                password:
+                  type: string
+                  required: false
+                  format: password
+                  example: 3M7jLpvv
+      responses:
+        '200':
+          description: Details of a new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully created user
+                  code:
+                    type: integer
+                    example: 0
+                  jwt:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  user:
+                    $ref: '#/components/schemas/user'
+  /users/{userId}:
+    parameters:
+      - name: userId
+        description: user id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - user
+      summary: Returns a particular of user.
+      operationId: getUser
+      responses:
+        '200':
+          description: A user object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned user
+                  code:
+                    type: integer
+                    example: 0
+                  user:
+                    $ref: '#/components/schemas/user'
+    put:
+      tags:
+        - user
+      summary: Update a user's details
+      operationId: updateUser
+      requestBody:
+        required: true
+        description: A user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: false
+                  example: John Doe
+                email:
+                  type: string
+                  required: false
+                  format: email
+                  example: someone@example.com
+                password:
+                  type: string
+                  required: false
+                  format: password
+                  example: 3M7jLpvv
+      responses:
+        '200':
+          description: Details of the updated user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully updated user
+                  code:
+                    type: integer
+                    example: 0
+                  user:
+                    $ref: '#/components/schemas/user'
+    delete:
+      tags:
+        - user
+      summary: Delete this user.
+      operationId: deleteUser
+      responses:
+        '200':
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User deleted
+                  code:
+                    type: integer
+                    example: 0
+  /users/{userId}/budgets:
+    parameters:
+      - name: userId
+        description: user id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - user
+        - budget
+      summary: Returns a list of budgets for this user.
+      operationId: getMyBudgets
+      responses:
+        '200':
+          description: A JSON array of budgets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned budgets
+                  code:
+                    type: integer
+                    example: 0
+                  budgets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/budget'
+    post:
+      tags:
+        - user
+        - budget
+      summary: Create a new budget
+      operationId: createBudget
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: New Budget
+                income:
+                  type: number
+                  format: double
+                  example: 250000.00
+      responses:
+        '200':
+          description: Details of the new budget
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully created budget
+                  code:
+                    type: integer
+                    example: 0
+                  budget:
+                    $ref: '#/components/schemas/budget'
+  /budgets/{budgetId}:
+    parameters:
+      - name: budgetId
+        description: Budget id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - budget
+      summary: Returns the details of this budget
+      operationId: getBudget
+      responses:
+        '200':
+          description: The details of this budget
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned budget
+                  code:
+                    type: integer
+                    example: 0
+                  budget:
+                    $ref: '#/components/schemas/budget'
+    put:
+      tags:
+        - budget
+      summary: Update a budget's details
+      operationId: updateBudget
+      requestBody:
+        required: true
+        description: A budget object. Each field is optional
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: false
+                  example: New Budget
+                income:
+                  required: false
+                  type: number
+                  format: double
+                  example: 250000.00
+      responses:
+        '200':
+          description: Details of the updated budget
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully updated budget
+                  code:
+                    type: integer
+                    example: 0
+                  budget:
+                    $ref: '#/components/schemas/budget'
+    delete:
+      tags:
+        - budget
+      summary: Delete this budget.
+      operationId: deleteBudget
+      responses:
+        '200':
+          description: Budget deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Budget deleted
+                  code:
+                    type: integer
+                    example: 0
+  /budgets/{budgetId}/expenses:
+    parameters:
+      - name: budgetId
+        description: Budget id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - budget
+        - expense
+      summary: Returns a list of expenses for this budget
+      operationId: getBudgetExpenses
+      responses:
+        '200':
+          description: A JSON array of expenses
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned expenses
+                  code:
+                    type: integer
+                    example: 0
+                  expenses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/expense'
+    post:
+      tags:
+        - budget
+        - expense
+      summary: Add a new expense to this budget
+      operationId: createExpense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: New expense
+                allocation:
+                  type: number
+                  format: double
+                  example: 15000.00
+      responses:
+        '200':
+          description: Details of the new expense
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully created expense
+                  code:
+                    type: integer
+                    example: 0
+                  expense:
+                    $ref: '#/components/schemas/expense'
+  /expenses/{expenseId}:
+    parameters:
+      - name: expenseId
+        description: Expense id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - expense
+      summary: Returns the details of this expense
+      operationId: getExpense
+      responses:
+        '200':
+          description: The details of this expense
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned expense
+                  code:
+                    type: integer
+                    example: 0
+                  expense:
+                    $ref: '#/components/schemas/expense'
+    put:
+      tags:
+        - expense
+      summary: Update an expense's details
+      operationId: updateExpense
+      requestBody:
+        required: true
+        description: An expense object. Each field is optional
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: false
+                  example: New Expense
+                allocation:
+                  required: false
+                  type: number
+                  format: double
+                  example: 25000.00
+      responses:
+        '200':
+          description: Details of the updated expense
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully updated expense
+                  code:
+                    type: integer
+                    example: 0
+                  expense:
+                    $ref: '#/components/schemas/expense'
+    delete:
+      tags:
+        - expense
+      summary: Delete this expense.
+      operationId: deleteExpense
+      responses:
+        '200':
+          description: Expense deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Expense deleted
+                  code:
+                    type: integer
+                    example: 0
+  /expenses/{expenseId}/purchases:
+    parameters:
+      - name: expenseId
+        description: Expense id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - expense
+        - purchase
+      summary: Returns a list of purchases for this expense
+      operationId: getExpensePurchases
+      responses:
+        '200':
+          description: A JSON array of purchases
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned purchases
+                  code:
+                    type: integer
+                    example: 0
+                  purchases:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/purchase'
+    post:
+      tags:
+        - expense
+        - purchase
+      summary: Add a new purchase to this expense
+      operationId: createPurchase
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Ice cream
+                cost:
+                  type: number
+                  format: double
+                  example: 250.00
+      responses:
+        '200':
+          description: Details of the new purchase
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully create purchase
+                  code:
+                    type: integer
+                    example: 0
+                  purchase:
+                    $ref: '#/components/schemas/purchase'
+  /purchases/{purchaseId}:
+    parameters:
+      - name: purchaseId
+        description: Purchase id
+        schema:
+          type: integer
+        in: path
+    get:
+      tags:
+        - purchase
+      summary: Returns the details of this purchase
+      operationId: getPurchase
+      responses:
+        '200':
+          description: The details of this purchase
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully returned purchase
+                  code:
+                    type: integer
+                    example: 0
+                  purchase:
+                    $ref: '#/components/schemas/purchase'
+    put:
+      tags:
+        - purchase
+      summary: Update a purchase's details
+      operationId: updatePurchase
+      requestBody:
+        required: true
+        description: A purchase object. Each field is optional
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: false
+                  example: Ice cream
+                cost:
+                  required: false
+                  type: number
+                  format: double
+                  example: 280.00
+      responses:
+        '200':
+          description: Details of the updated purchase
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully updated purchase
+                  code:
+                    type: integer
+                    example: 0
+                  purchase:
+                    $ref: '#/components/schemas/purchase'
+    delete:
+      tags:
+        - purchase
+      summary: Delete this purchase.
+      operationId: deletePurchase
+      responses:
+        '200':
+          description: Purchase deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Purchase deleted
+                  code:
+                    type: integer
+                    example: 0
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          format: email
+          example: someone@example.com
+        budgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/budget'
+    budget:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Budget 1
+        income:
+          type: number
+          format: double
+          example: 250000.00
+        date:
+          type: string
+          format: 'date-time'
+          example: "2017-07-21T17:32:28Z"
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense'
+    expense:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Expense 1
+        allocation:
+          type: number
+          format: double
+          example: 10000.00
+        date:
+          type: string
+          format: 'date-time'
+          example: "2017-07-21T17:32:28Z"
+        purchases:
+          type: array
+          items:
+            $ref: '#/components/schemas/purchase'
+    purchase:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Purchase 1
+        cost:
+          type: number
+          format: double
+          example: 250.00
+        date:
+          type: string
+          format: 'date-time'
+          example: "2017-07-21T17:32:28Z"

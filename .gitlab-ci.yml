@@ -1,0 +1,28 @@
+stages:
+    - test
+
+postman_tests:
+    stage: test
+    image: 
+        name: postman/newman_alpine33
+        entrypoint: [""]
+    image: python:latest
+    # image: node:latest
+    before_script:
+        - python -V
+        - pip install virtualenv
+        - virtualenv venv
+        - source venv/bin/activate
+
+    script:
+        - pip install -r requirements.txt
+        - python run.py
+        - npm install -g newman-reporter-html
+        - newman run test_case.json --reporters cli,html,junit --reporter-html-export report.html --reporter-junit-export report.xml
+
+    artifacts:
+        when: always
+        paths:
+            - report.html
+        reports:
+            junit: report.xml
